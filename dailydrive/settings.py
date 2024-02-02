@@ -93,7 +93,10 @@ WSGI_APPLICATION = 'dailydrive.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgresql://postgres:postgres@localhost:5432/mysite',
+        # default='postgresql://postgres:postgres@localhost:5432/mysite',
+        default='postgres://dailydrive:PQJItB3DhrrITOwSPXK9sP2KihiWy76P@dpg-cmukl9gcmk4c73ac15ig-a.oregon-postgres.render.com/dailydrive',
+        # default='postgres://dailydrive:PQJItB3DhrrITOwSPXK9sP2KihiWy76P@dpg-cmukl9gcmk4c73ac15ig-a.oregon-postgres.render.com/dailydrive'
+        # default= dj_database_url.parse('postgres://dailydrive:PQJItB3DhrrITOwSPXK9sP2KihiWy76P@dpg-cmukl9gcmk4c73ac15ig-a.oregon-postgres.render.com/dailydrive')
         conn_max_age=600
     )
 }
