@@ -1,6 +1,6 @@
 databases:
   - name: dailydrive 
-    databaseName: dailydrive 
+    databaseName: dailydrivedb 
     user: dailydrive 
 
 services:
