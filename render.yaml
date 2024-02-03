@@ -1,7 +1,7 @@
 databases:
-  - name: dailydrive 
+  - name: dailydrivedb 
     databaseName: dailydrivedb 
-    user: dailydrive 
+    user: dailydrivedb 
 
 services:
   - type: web
