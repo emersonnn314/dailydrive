@@ -64,7 +64,7 @@ def login_view(request):
         if form.is_valid():
             user = form.get_user()
             login(request, user)
-            return redirect('home')  # or wherever you want to redirect after login
+            return redirect('index')  # or wherever you want to redirect after login
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
