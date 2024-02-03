@@ -8,7 +8,7 @@ from urllib.parse import unquote
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages 
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-import requests
+# import requests
 
 # def index(request):
 #     return render(request, 'quotes/index.html', {})
