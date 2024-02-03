@@ -1,0 +1,108 @@
+<!-- quotes_app/templates/saved_quotes.html -->
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <h2>Saved Quotes</h2>
+
+  <!-- Search form -->
+  <form method="get" action="{% url 'saved_quotes' %}" class="mb-3">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search by author"
+        name="author"
+        value="{{ selected_author }}"
+      />
+      <div class="input-group-append">
+        <button type="submit" class="btn btn-outline-secondary">Search</button>
+      </div>
+    </div>
+  </form>
+
+  <!-- Display Message when No Quotes Found -->
+  {% if saved_quotes.count == 0 %}
+    <p>No quotes found for the given author.</p>
+  {% else %}
+    <button type="button" class="btn btn-primary mb-3" id="edit-button">
+      Edit
+    </button>
+
+    <form
+      method="post"
+      action="{% url 'delete_selected_quotes' %}"
+      id="delete-form"
+    >
+      {% csrf_token %}
+      <ul class="list-group">
+        {% for saved_quote in page_obj %}
+        <li class="list-group-item">
+          <div class="form-check" style="display: none">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              name="quote_ids"
+              value="{{ saved_quote.id }}"
+            />
+          </div>
+          {{ saved_quote.quote_text }} - <span class="fst-italic"> {{ saved_quote.quote_author }} </span>
+        </li>
+        {% endfor %}
+      </ul>
+
+      <button type="submit" class="btn btn-danger mt-3" style="display: none">
+        Delete Selected
+      </button>
+    </form>
+
+    <!-- Pagination Display -->
+    <nav aria-label="Page navigation">
+      <ul class="pagination">
+        {% if page_obj.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page=1" aria-label="First">
+              <span aria-hidden="true">&laquo;&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        {% endif %}
+        
+        <li class="page-item disabled">
+          <span class="page-link">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        </li>
+
+        {% if page_obj.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li class="page-item">
+            <a class="page-link" href="?page={{ page_obj.paginator.num_pages }}" aria-label="Last">
+              <span aria-hidden="true">&raquo;&raquo;</span>
+            </a>
+          </li>
+        {% endif %}
+      </ul>
+    </nav>
+  {% endif %}
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const editButton = document.getElementById("edit-button");
+    const deleteForm = document.getElementById("delete-form");
+    const checkboxes = document.querySelectorAll(".form-check");
+
+    editButton.addEventListener("click", function () {
+      checkboxes.forEach(function (checkbox) {
+        checkbox.style.display = "block";
+      });
+
+      deleteForm.querySelector('button[type="submit"]').style.display = "block";
+    });
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,14 @@
+<!-- quotes_app/templates/registration/login.html -->
+{% extends 'base.html' %} {% block content %}
+<div class="container mt-5">
+  <h2 class="mb-4">Log In</h2>
+  <form method="post" action="{% url 'login' %}" class="col-md-6">
+    {% csrf_token %} {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Log In</button>
+  </form>
+  <p class="mt-3">
+    Don't have an account?
+    <a href="{% url 'signup' %}" class="btn btn-link">Sign Up</a>
+  </p>
+</div>
+{% endblock %}

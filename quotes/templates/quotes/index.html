@@ -1,30 +1,76 @@
-{% load static %}
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends 'base.html' %}
+{% block content %}
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </head>
+  {% load static %}
+  <head>
+    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>Hello Django on Render!</title>
+    <title>Quotes</title>
 
-    <link rel="stylesheet"
-          href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
-          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
-          crossorigin="anonymous">
-</head>
-<body>
-<main class="container">
-    <header class="container mt-4 mb-4">
-    <a href="https://render.com">
-        <img src="{% static "quotes/render-banner.png" %}" alt="Render" class="mw-100">
-    </a>
-</header>
-    <div class="row text-center justify-content-center">
-        <div class="col">
-            <h1 class="display-4">something</h1>
-        </div>
-    </div>
-</main>
-</body>
-</html>
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous" /> {% endcomment %}
+  </head>
+  <body>
+    {% comment %} <h3 class="text-center mt-5">Daily Quote</h3> {% endcomment %}
+    <figure class="text-center mt-5">
+      <blockquote class="blockquote">
+        <p id="quote" class="">{{ daily_quote }}</p>
+      </blockquote>
+      <figcaption class="blockquote-footer" id="author">- {{ author }}</figcaption>
+
+      <div class="font-weight-bold mt-5">
+        {% if request.user.is_authenticated %}
+          <a id="save-button" href="{% url 'save_quote' quote_text=daily_quote|urlencode quote_author=author|urlencode %}" class="btn btn-success">Save Quote</a>
+        {% endif %}
+
+        <button id="new-quote" class="btn btn-primary">New Quote</button>
+      </div>
+    </figure>
+  </body>
+
+  <script>
+    const button = document.getElementById('new-quote')
+    // button with listener event to fetch new quote
+    button.addEventListener('click', function () {
+      fetch('https://api.quotable.io/random')
+        .then((response) => response.json())
+        .then((data) => {
+          const quote = data.content
+          const author = data.author
+    
+          const quoteElement = document.getElementById('quote')
+          const authorElement = document.getElementById('author')
+          quoteElement.textContent = quote
+          authorElement.textContent = author
+          // Update the href attribute of the "Save Quote" link
+          const saveButton = document.getElementById('save-button')
+    
+          // In your JavaScript code
+          const newHref = `/save-quote/${encodeURIComponent(quote)}/${encodeURIComponent(author)}/`
+          saveButton.setAttribute('href', newHref)
+        })
+        .catch((error) => console.error('Error:', error))
+    })
+    document.getElementById('new-quote').addEventListener('click', function () {
+      // Your code to generate a new quote goes here
+    
+      // After generating a new quote, add an event listener to the "Save Quote" button
+      const saveButton = document.getElementById('save-button')
+      saveButton.addEventListener('click', function (event) {
+        event.preventDefault() // Prevent the default action (navigating to the URL)
+    
+        fetch(saveButton.getAttribute('href'))
+          .then((response) => response.json())
+          .then((data) => {
+            toast.show()
+            alert(data.message)
+          })
+          .catch((error) => console.error('Error:', error))
+      })
+    })
+  </script>
+{% endblock %}
