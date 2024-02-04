@@ -12,10 +12,11 @@ import requests
 
 # def index(request):
 #     return render(request, 'quotes/index.html', {})
-
+import os
+API_KEY = os.environ.get('API_KEY')
 def index(request):
     if 'daily_quote' not in request.session or 'author' not in request.session:
-        api_key = 'CkfY/AL6vj6paYbBOns51g==MRyCQx5eVC52s1Rw'
+        api_key = os.environ.get('API_KEY')
         category = 'inspirational'
         api_url = f'https://api.api-ninjas.com/v1/quotes?category={category}'
 
