@@ -2,3 +2,58 @@
 .venv
 .note
 .note.txt
+quotes/__pycache__
+daily_quotes/__pycache__
+quotes/migrations
+daily_quotes/migrations
+
+
+# Django
+*.pyc
+*.pyo
+__pycache__/
+*.pyc
+*.pyo
+
+# Node.js
+node_modules/
+
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.pyc
+*.pyo
+
+# Compiled files
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.pyc
+
+# Logs and databases
+*.log
+*.sqlite3
+*.log.*
+
+# Logs and databases
+*.log
+*.sqlite3
+*.log.*
+
+# Django migrations
+**/migrations/
+
+# Personal notes or temporary files
+.note
+.note.txt
+
+# Python virtual environment
+.venv
+
+# Environment file
+.env
