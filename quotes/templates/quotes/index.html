@@ -3,6 +3,8 @@
   <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap">
+
   </head>
   {% load static %}
   <head>
@@ -18,9 +20,9 @@
     {% comment %} <h3 class="text-center mt-5">Daily Quote</h3> {% endcomment %}
     <figure class="text-center mt-5">
       <blockquote class="blockquote">
-        <p id="quote" class="">{{ daily_quote }}</p>
+        <p id="quote" class="ps-1 pe-1" style="font-family: 'Cormorant Garamond', serif;">{{ daily_quote }}</p>
       </blockquote>
-      <figcaption class="blockquote-footer" id="author">- {{ author }}</figcaption>
+      <figcaption class="blockquote-footer pt-1 fst-italic" id="author">- {{ author }}</figcaption>
 
       <div class="font-weight-bold mt-5">
         {% if request.user.is_authenticated %}
