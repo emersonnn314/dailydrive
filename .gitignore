@@ -2,10 +2,10 @@
 .venv
 .note
 .note.txt
-quotes/__pycache__
-daily_quotes/__pycache__
-quotes/migrations
-daily_quotes/migrations
+/quotes/__pycache__
+/daily_quotes/__pycache__
+/quotes/migrations
+/daily_quotes/migrations
 
 
 # Django
